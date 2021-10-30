@@ -91,4 +91,34 @@ contract MyEpicGame is ERC721{
         //every user most use a different tokenID
         _tokenIds.increment();
     }
+
+    function tokenURI(uint256 _tokenId) public view override returns(string memory) {
+        CharacterAttributes memory charAttributes = nftHolderAttributes[_tokenId];
+
+        string memory strAr = Strings.toString(charAttributes.ar);
+        string memory strMaxAr = Strings.toString(charAttributes.maxAr);
+        string memory strCharismaP = Strings.toString(charAttributes.charismaP);
+
+        string memory json = Base64.encode(
+            bytes(
+            string(
+                abi.encodePacked(
+                '{"name": "',
+                charAttributes.name,
+                ' -- NFT #: ',
+                Strings.toString(_tokenId),
+                '", "description": "This is an NFT that lets people play in the game Metaverse Series!", "image": "',
+                charAttributes.imageURI,
+                '", "attributes": [ { "trait_type": "Audience Rating", "value": ',strAr,', "max_value":',strMaxAr,'}, { "trait_type": "Charisma Points", "value": ',
+                strCharismaP,'} ]}'
+                )
+            )
+            )
+        );
+
+        string memory output = string(
+            abi.encodePacked("data:application/json;base64,", json)
+        );
+        return output;
+    }
 }
