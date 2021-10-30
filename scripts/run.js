@@ -4,9 +4,9 @@ const main = async () => {
     //create a local Ethereum network for this project via hardhat
     const gameContract = await gameContractFactory.deploy(
         ["Modern Family", "HIMYM", "Brooklyng 99"], //Names
-        ["https://i.imgur.com/pKd5Sdk.png", // Images
-            "https://i.imgur.com/xVu4vFL.png",
-            "https://i.imgur.com/WMB6g9u.png"],
+        ["https://i.imgur.com/xLFfRnW.jpg", // Images
+            "https://i.imgur.com/Y0eT9F0.jpg",
+            "https://i.imgur.com/zCVAbeI.jpg"],
         [500, 400, 300], //HP values
         [200, 150, 300] //Attack damage values
     );
