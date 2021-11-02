@@ -66,10 +66,11 @@ contract MyEpicGame is ERC721{
                 name: bossName,
                 imageURI: bossImageURI,
                 ar: bossAr,
+                maxAr: bossAr,
                 charismaP: bossCharismaP
             });
 
-            conole.log("Done initializing boss %s w/ %s ar, img %s", bigBoss.name, bigBoss.ar, bigBoss.imageURI);
+            console.log("Done initializing boss %s w/ %s ar, img %s", bigBoss.name, bigBoss.ar, bigBoss.imageURI);
 
             //initialize characters
             for( uint i = 0; i < characterNames.length; i+=1){
@@ -145,5 +146,37 @@ contract MyEpicGame is ERC721{
             abi.encodePacked("data:application/json;base64,", json)
         );
         return output;
+    }
+
+    function attackBoss() public {
+        // Get the state of the player's NFT.
+        uint256 nftTokenIdOfPlayer = nftHolders[msg.sender];
+        CharacterAttributes storage player = nftHolderAttributes[nftTokenIdOfPlayer];
+        console.log("\nPlayer w/ character %s is about to attack. Has %s ar and %s cp", player.name, player.ar, player.charismaP);
+        console.log("Boss %s has %s ar and %s cp", bigBoss.name, bigBoss.ar, bigBoss.charismaP);
+
+        // Make sure the player has more than 0 HP.
+        require(player.ar > 0, "Error: character must have ar to attack boss");
+
+        // Make sure the boss has more than 0 HP.
+        require(bigBoss.ar >0, "Error: boss must have ar to be attacked");
+        
+        // Allow player to attack boss.
+        if(bigBoss.ar < player.charismaP) {
+            bigBoss.ar = 0;
+        }else {
+            bigBoss.ar = bigBoss.ar - player.charismaP;
+        }
+
+        console.log("Player atacked Boss. New boss ar: %s", bigBoss.ar);
+
+        // Allow boss to attack player.
+        if(player.ar < bigBoss.charismaP){
+            player.ar = 0;
+        } else {
+            player.ar = player.ar - bigBoss.charismaP;
+        }
+
+        console.log("Boss atacked player. New player ar: %s\n", player.ar);
     }
 }

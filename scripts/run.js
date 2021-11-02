@@ -24,9 +24,14 @@ const main = async () => {
     txn = await gameContract.mintCharacterNFT(2);
     await txn.wait();
 
-    //get the value of the NFTs URI
-    let returnedTokenUri = await gameContract.tokenURI(1);
-    console.log("Token URI:", returnedTokenUri);
+    // //get the value of the NFTs URI
+    // let returnedTokenUri = await gameContract.tokenURI(1);
+    // console.log("Token URI:", returnedTokenUri);
+    txn = await gameContract.attackBoss();
+    await txn.wait();
+
+    txn = await gameContract.attackBoss();
+    await txn.wait();
 }
 
 const runMain = async () => {
