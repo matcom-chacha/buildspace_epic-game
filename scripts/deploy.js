@@ -9,7 +9,11 @@ const main = async () => {
             "https://i.imgur.com/Y0eT9F0.jpg",
             "https://i.imgur.com/zCVAbeI.jpg"],
         [500, 400, 300], //HP values
-        [200, 150, 300] //Attack damage values
+        [200, 150, 300], //Attack damage values
+        "F.R.I.E.N.D.S.",//boss name
+        "https://i.imgur.com/ezz7BYS.jpg",//boss imgURI
+        10000,//boss ar
+        60//boss cp
     );
     //await for the contract to be mined by the network fake miners
     await gameContract.deployed();

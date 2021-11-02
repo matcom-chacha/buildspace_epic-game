@@ -26,6 +26,16 @@ contract MyEpicGame is ERC721{
         uint charismaP;//a serial with higer amount of charisma points will decrese with a faster rate the oponents audience(attackDamage)
     }
 
+    struct BigBoss {
+        string name;
+        string imageURI;
+        uint ar;
+        uint maxAr;
+        uint charismaP;
+    }
+
+    BigBoss public bigBoss;
+
     // for NFTs id
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
@@ -43,10 +53,25 @@ contract MyEpicGame is ERC721{
         string[] memory characterNames,
         string[] memory characterImageURIs,
         uint[] memory characterAr,
-        uint[] memory characterCharismaP
+        uint[] memory characterCharismaP,
+        string memory bossName,
+        string memory bossImageURI,
+        uint bossAr,
+        uint bossCharismaP
         ) 
         ERC721("AwesomeSeries", "AS")
         {
+            //initialize characters
+            bigBoss = BigBoss({
+                name: bossName,
+                imageURI: bossImageURI,
+                ar: bossAr,
+                charismaP: bossCharismaP
+            });
+
+            conole.log("Done initializing boss %s w/ %s ar, img %s", bigBoss.name, bigBoss.ar, bigBoss.imageURI);
+
+            //initialize characters
             for( uint i = 0; i < characterNames.length; i+=1){
                 defaultCharacters.push(CharacterAttributes({
                     characterIndex: i,
