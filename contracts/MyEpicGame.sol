@@ -45,7 +45,7 @@ contract MyEpicGame is ERC721{
         uint[] memory characterAr,
         uint[] memory characterCharismaP
         ) 
-        ERC721("AweosomeSeries", "AS")
+        ERC721("AwesomeSeries", "AS")
         {
             for( uint i = 0; i < characterNames.length; i+=1){
                 defaultCharacters.push(CharacterAttributes({
