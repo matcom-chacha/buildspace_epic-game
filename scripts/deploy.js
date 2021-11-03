@@ -1,4 +1,3 @@
-//file to deploy to an actuall ethereum network(or a fake one initialy to test)
 const main = async () => {
     //compile contract and generate files under artifact directory
     const gameContractFactory = await hre.ethers.getContractFactory('MyEpicGame');
@@ -20,23 +19,16 @@ const main = async () => {
     console.log("Contract deployed to:", gameContract.address);
 
     let txn;
-    //mint one NFT with character 2 (hardhat call this with a default wallet)
-    txn = await gameContract.mintCharacterNFT(0);
-    await txn.wait();
-    console.log("Minted character NFT #1")
-
-
-    //mint one NFT with character 2 (hardhat call this with a default wallet)
-    txn = await gameContract.mintCharacterNFT(1);
-    await txn.wait();
-    console.log("Minted character NFT #2")
 
     //mint one NFT with character 2 (hardhat call this with a default wallet)
     txn = await gameContract.mintCharacterNFT(2);
     await txn.wait();
-    console.log("Minted character NFT #3")
 
-    console.log("Done deploying and minting");
+    txn = await gameContract.attackBoss();
+    await txn.wait();
+
+    txn = await gameContract.attackBoss();
+    await txn.wait();
 }
 
 const runMain = async () => {
