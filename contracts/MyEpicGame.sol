@@ -120,7 +120,7 @@ contract MyEpicGame is ERC721{
         //every user most use a different tokenID
         _tokenIds.increment();
 
-        emit CharacterNFTMinted(msg.sender, newItemId, _charaterIndex);
+        emit CharacterNFTMinted(msg.sender, newItemId, _characterIndex);
     }
 
     function tokenURI(uint256 _tokenId) public view override returns(string memory) {

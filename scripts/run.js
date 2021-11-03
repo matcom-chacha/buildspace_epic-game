@@ -17,6 +17,18 @@ const main = async () => {
     //await for the contract to be mined by the network fake miners
     await gameContract.deployed();
     console.log("Contract deployed to:", gameContract.address);
+
+    let txn;
+
+    //mint one NFT with character 2 (hardhat call this with a default wallet)
+    txn = await gameContract.mintCharacterNFT(2);
+    await txn.wait();
+
+    txn = await gameContract.attackBoss();
+    await txn.wait();
+
+    txn = await gameContract.attackBoss();
+    await txn.wait();
 }
 
 const runMain = async () => {
