@@ -49,6 +49,9 @@ contract MyEpicGame is ERC721{
     //to store the link bt NFT - owner
     mapping(address => uint256) public nftHolders;
 
+    event CharacterNFTMinted(address sender, uint256 tokenId, uint256 characterIndex);
+    event AttackComplete(uint newBossAr, uint newPlayerAr);
+
     constructor(
         string[] memory characterNames,
         string[] memory characterImageURIs,
@@ -116,6 +119,8 @@ contract MyEpicGame is ERC721{
 
         //every user most use a different tokenID
         _tokenIds.increment();
+
+        emit CharacterNFTMinted(msg.sender, newItemId, _charaterIndex);
     }
 
     function tokenURI(uint256 _tokenId) public view override returns(string memory) {
@@ -178,5 +183,30 @@ contract MyEpicGame is ERC721{
         }
 
         console.log("Boss atacked player. New player ar: %s\n", player.ar);
+        emit AttackComplete(bigBoss.ar, player.ar);
+    }
+
+    function checkIfUserHasNft() public view returns (CharacterAttributes memory) {
+        // Get the tokenId of the user's character NFT
+        uint256 userNftTokenId = nftHolders[msg.sender];
+        
+        // If the user has a tokenId in the map, return their character.
+        if(userNftTokenId > 0) {//taking advantage of default value of 0 in non set slots
+            return nftHolderAttributes[userNftTokenId];
+        }
+
+        // Else, return an empty character.
+        else {
+            CharacterAttributes memory emptyStruct;
+            return emptyStruct;
+        }
+    }
+
+    function getAllDefaultCharacters() public view returns(CharacterAttributes[] memory){
+        return defaultCharacters;
+    }
+
+    function getBigBoss() public view returns (BigBoss memory){
+        return bigBoss;
     }
 }
